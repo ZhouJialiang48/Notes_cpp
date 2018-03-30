@@ -1,37 +1,42 @@
-## Welcome to GitHub Pages
+# C++ 面向对象 Boolan
 
-You can use the [editor on GitHub](https://github.com/ZhouJialiang48/Notes_cpp/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## 无指针class
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+* **public：接口(interface)，public：数据细节;**
 
-### Markdown
+* **首先考虑pass by reference(to const);**
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+* **类内尽可能添加const;**
 
-```markdown
-Syntax highlighted code block
+* **ctor尽量使用初始值列表;**
 
-# Header 1
-## Header 2
-### Header 3
+* **return by reference/value;**
 
-- Bulleted
-- List
+* **类声明中的内联函数定义，需放在同一个头文件当中(类的后面)，否则会产生链接错误**
 
-1. Numbered
-2. List
+### Reference to const 
 
-**Bold** and _Italic_ and `Code` text
+* **引用**是一种 **别名** ，代表一种  **绑定关系**，它不是一个`object`，因此不存在`refence to reference`(**differ from pointers**).
 
-[Link](url) and ![Image](src)
+* **引用**必须有**初始化**；
+
+* 对常量的 __*引用*__ 可简称为 __*常量引用*__ (不规范)；
+
+* 注意区别：
+```cpp
+double pi = 3.14;
+
+int &r1 = pi;       // 非法！
+
+const int &r2 = pi;	// 合法！
+ ```
+
+实际上编译器执行如下：
+ ```cpp
+
+const int temp_pi = pi;
+
+const int &r2 = temp_pi;
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ZhouJialiang48/Notes_cpp/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+即 r2实际上**绑定**了一个**临时变量**.
