@@ -18,18 +18,18 @@
     * 对常量的**引用**可简称为 *常量引用* (不规范);
 
 2. **常量引用**
+
     * 注意区别:
-```
-      double pi = 3.14;
+    ```cpp
+      double pi = 3.14;
       int &r1 = pi;       // 非法！
       const int &r2 = pi;	// 合法！
 
-// 实际上编译器执行如下：
+      // 实际上编译器执行如下：
       const int temp_pi = pi;
       const int &r2 = temp_pi;
-// r2实际上 绑定 了一个 临时变量 .
-```
-
+      // r2实际上 绑定 了一个 临时变量 .
+    ```
 ### const pointer  &  pointer to const
 
 1. **常量指针(const pointer, cp)**
