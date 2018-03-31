@@ -30,8 +30,9 @@
       // 实际上编译器执行如下：
       const int temp_pi = pi;
       const int &r2 = temp_pi;
-      // r2实际上 绑定 了一个 临时变量 .
+      // r2实际上 绑定 了一个 临时变量.
 ```
+
 ### const pointer  &  pointer to const
 
 1. **常量指针(const pointer, cp)**
