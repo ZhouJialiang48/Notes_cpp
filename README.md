@@ -1,4 +1,4 @@
-### 无指针class设计要点
+## **无指针class设计要点**
 >* **public：接口(interface)，public：数据细节;**
 >* **首先考虑pass by reference(to const);**
 >* **类内尽可能添加const;**
@@ -144,4 +144,4 @@
     
     * 看似打破封装，实则成立合理；
 
-
+-----------
