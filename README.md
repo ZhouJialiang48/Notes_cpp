@@ -22,7 +22,7 @@
 
     * 注意区别:
     
-    ```cpp
+```cpp
       double pi = 3.14;
       int &r1 = pi;       // 非法！
       const int &r2 = pi;	// 合法！
@@ -31,7 +31,7 @@
       const int temp_pi = pi;
       const int &r2 = temp_pi;
       // r2实际上 绑定 了一个 临时变量 .
-    ```
+```
 ### const pointer  &  pointer to const
 
 1. **常量指针(const pointer, cp)**
@@ -52,6 +52,7 @@
 
 
 ### This指针
+
 1. **功能:**
 
     * 是一种用来**访问**调用该成员函数的**对象的地址**的**隐式形参;**
