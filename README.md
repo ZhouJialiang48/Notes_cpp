@@ -8,21 +8,25 @@
 
 ### Reference to const 
 1. **引用**
+
     * 一种 **别名** ,  一种**绑定关系**;
+    
     * 不是一个`object`, 因此不存在`refence to reference`(**differ from pointers**);
+    
     * 必须**初始化**;
+    
     * 对常量的**引用**可简称为 *常量引用* (不规范);
 
 2. **常量引用**
     * 注意区别:
-```cpp
-double pi = 3.14;
-int &r1 = pi;       // 非法！
-const int &r2 = pi;	// 合法！
+```
+      double pi = 3.14;
+      int &r1 = pi;       // 非法！
+      const int &r2 = pi;	// 合法！
 
 // 实际上编译器执行如下：
-const int temp_pi = pi;
-const int &r2 = temp_pi;
+      const int temp_pi = pi;
+      const int &r2 = temp_pi;
 // r2实际上 绑定 了一个 临时变量 .
 ```
 
