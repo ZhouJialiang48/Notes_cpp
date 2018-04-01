@@ -369,6 +369,14 @@ return a;
 
 	* `using namespace std;`
 	* `using std::cout;`
+	
+### 内存管理
+
+<div align=center>
+	<img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_1.jpg"/>
+	<img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_2.jpg"/>
+	<img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_3.jpg"/>
+</div>
 
 	
 
