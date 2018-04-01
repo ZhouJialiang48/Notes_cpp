@@ -306,6 +306,7 @@ delete ps;
 ### Singleton - 将Ctor放在Private区的设计模式
 
 * 代码示例
+
 ```cpp
 class A
 {
