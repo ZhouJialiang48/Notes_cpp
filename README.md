@@ -156,6 +156,7 @@ const int &r2 = temp_pi;
 1. **要点**
 
    * 新构造的对象: new 新地址;
+   
    * 深度拷贝 = 拷贝值 + 拷贝地址;
 
 2. **代码示例**
@@ -163,6 +164,7 @@ const int &r2 = temp_pi;
 ```cpp
 // Declaration
 String(const String& str);
+
 // Definition
 inline String::String(const String& str)
 {
@@ -170,3 +172,137 @@ inline String::String(const String& str)
 	strcpy(m_data, str.m_data);
 }
 ```
+
+### Copy Operator (拷贝赋值函数)
+        
+1. **要点**
+
+	* 判断是否自我赋值(self assignment);
+
+		* if True: return self;
+
+	* 被赋值对象: delete 原地址;
+
+	* 新构造的对象: new 新地址;
+
+	* 深度拷贝;
+	
+2. **代码示例**
+
+```cpp
+// Declaration
+String& operator=(const String& str);
+
+// Definition
+inline String& String::operator=(const String& str)
+{
+	if (this == &str)	// Self Assignment
+		return *this;
+	delete[] m_data;
+	m_data = new char[strlen(str.m_data) + 1];
+	strcpy(m_data, str.m_data);
+	return *this;
+}
+```
+
+### Stack & Heap(栈 & 堆)
+
+1. Stack: 
+
+	* scope(作用域)内的一块**内存空间**, **function body**内声明的变量(static除外);
+
+	* 但是static object的内存在scope结束之后**仍然存在**,直至整个程序结束才消亡;
+
+2. Heap: 
+
+	* 由操作系统提供的一块**global**内存空间, 可**动态分配内存(dynamic allocate)**;
+
+	* global object在**整个程序结束之后**才结束生命周期;
+		
+### New的内部工作原理
+ 
+* **先分配 memory, 再调用 ctor**
+
+* ep: 
+```cpp
+Complex * pc = new Complex(1, 2);
+```
+
+* 编译器转化为:
+
+	1. **分配内存**, 内部调用 `malloc(n)`
+	
+		```cpp
+		void * mem = operator new( sizeof(Complex) );
+		```
+
+	2. **转换类型**, 将 mem指针 从 `void*` 转型成 `Complex*`
+	
+		```cpp
+		pc = static_cast(mem);
+		```
+
+	3. **重新指向**, pc 指向新创建对象的头部
+	
+		```cpp
+		pc -> Complex::Complex(1, 2);
+		```
+		
+### Delete的内部工作原理
+                
+* 先调用 dtor, 再释放 memory
+
+* ep:
+```cpp
+String * ps = new String("Hello");
+...
+delete ps;
+```
+
+* 编译器转化为:
+
+	1. **析构内容**, 删除**动态分配的内存**(指针指向的内容)
+	
+	```cpp
+	String::~String(ps);
+    ```
+	
+	2. **删除指针**, 内部调用 **`free(ps)`**, 删除指针
+	
+	```cpp
+	operator delete(ps);
+	```
+	
+### Static
+
+1. **无static**
+
+	* **成员变量**: 根据创建出对象的不同，可以有**多份地址**;
+
+	* **成员函数**: **地址只有一份**，通过this指针来调用不同的对象;
+	
+2. **含static**
+
+	* **static成员变量**
+
+		* 地址**只有一份**;
+
+		* 需在**类外初始化**;
+		
+		```cpp 
+		Class_Name::static_data = value;
+		```
+
+		* 不能使用参数初始化表;
+
+	* **static成员函数**
+
+		* 地址只有一份, **没有this指针**;
+		
+		* 不能访问类中的*非静态变量*, 只能处理*static数据*;
+
+		* 可用类或对象来调用;
+
+
+
+
