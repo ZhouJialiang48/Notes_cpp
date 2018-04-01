@@ -22,15 +22,15 @@
 
    * 注意区别:
     
-```c++
-      double pi = 3.14;
-      int &r1 = pi;       // 非法！
-      const int &r2 = pi;	// 合法！
+```cpp
+double pi = 3.14;
+int &r1 = pi;       // 非法！
+const int &r2 = pi;	// 合法！
 
-      // 实际上编译器执行如下：
-      const int temp_pi = pi;
-      const int &r2 = temp_pi;
-      // r2实际上绑定了一个临时变量.
+// 实际上编译器执行如下：
+const int temp_pi = pi;
+const int &r2 = temp_pi;
+// r2实际上绑定了一个临时变量.
 ```
 
 ### const pointer  &  pointer to const
@@ -145,3 +145,28 @@
     * 看似打破封装，实则成立合理；
 
 -----------
+
+## **有指针class设计要点**
+>* **Big Three: 拷贝构造函数, 拷贝赋值函数, 析构函数;**
+>* **对于含指针类(Class with pointer), 必须含有copy ctor & copy op;**
+>* **static 和 Singleton;**
+
+### Copy Ctor (拷贝构造函数)
+
+1. **要点**
+
+   * 新构造的对象: new 新地址;
+   * 深度拷贝 = 拷贝值 + 拷贝地址;
+
+2. **代码示例**
+
+```cpp
+// Declaration
+String(const String& str);
+// Definition
+inline String::String(const String& str)
+{
+	m_data = new char[strlen(str.m_data) + 1];
+	strcpy(m_data, str.m_data);
+}
+```
