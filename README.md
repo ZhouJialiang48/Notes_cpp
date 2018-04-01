@@ -294,14 +294,83 @@ delete ps;
 		```
 
 		* 不能使用参数初始化表;
-
+		
 	* **static成员函数**
 
 		* 地址只有一份, **没有this指针**;
 		
-		* 不能访问类中的*非静态变量*, 只能处理*static数据*;
+		* 不能访问类中的**非静态变量**, 只能处理**static数据**;
 
 		* 可用类或对象来调用;
+
+### Singleton - 将Ctor放在Private区的设计模式
+
+* 代码示例
+```cpp
+class A
+{
+public:
+	static A& getInstance();   
+	setup() {...}
+private:
+	A();
+	A(const A& rhs);
+	// ...        
+};
+
+// 只有调用该静态方法，才会创建static变量，且只能创建一份
+A& A::getInstance()
+{
+static A a;
+return a;
+}
+```
+
+### Class Template 与 Function Template
+
+* 类模板实例化: 需要**指定类型**;
+
+* 函数模板实例化: 由编译器进行**自动类型推断(argument deduction)**;
+
+* 代码示例
+
+	1. 函数模板
+
+	```cpp
+	template <typename T>
+	int compare(const T& v1, const T& v2)
+	{
+		if (v1 < v2) return -1;
+		if (V1 > V2) return 1;
+		return 0;
+	}
+	
+	// 实例化输出int compare(const int&, const int&)
+	cout << compare(1, 0) << endl;	// T is int
+	```
+	
+	2. 类模板
+
+	```cpp
+	template <typename T> class A
+	{
+		// ...
+	}
+	
+	// 实例化类模板
+	A<int> a;
+	```
+	
+### Namespace
+        
+* 不同文件为相同namespace编写的内容会被自动结合到一起;
+
+* 两种使用方式:
+
+	* `using namespace std;`
+	* `using std::cout;`
+
+	
 
 
 
