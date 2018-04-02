@@ -381,9 +381,9 @@ return a;
 
 ## OOP思想 -- 类与类之间的关系:
 
-1. Inheritance 继承
-2. Composition 复合
-3. Delegation 委托
+>* Inheritance 继承
+>* Composition 复合
+>* Delegation 委托
 	
 ### Composition 复合(**has-a**)
 
