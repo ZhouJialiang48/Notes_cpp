@@ -377,8 +377,156 @@ return a;
 <div align=center><img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_2.jpg"/></div>	
 <div align=center><img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_3.jpg"/>	</div>
 
+-----------	
+
+## OOP思想 -- 类与类之间的关系:
+
+1. Inheritance 继承
+2. Composition 复合
+3. Delegation 委托
 	
+### Composition 复合(**has-a**)
 
+1. **Adapter**设计模式
+	
+2. A类(Container)复合B类(Component)，并能够使用B类的一些方法
+	
+3. 构造与析构
+	
+	* **构造由内而外**，首先调用Component的默认构造函数，才执行自己
+	```cpp
+	Container::Container(...): Component() {...}
+	```
+	* **析构由外而内**，先执行自己，再调用Component的析构函数
+	```cpp
+	Container::~Container(...): ~Component() {...}
+	```
+4. 代码示例:
+```cpp
+template <typename T>
+class queue
+{
+	// ...
+protected:
+	deque<T> c;	// 底层容器
+public:
+	// 下列方法完全通过底层容器c的操作函数来完成
+	bool empty() const { return c.empty; }
+	size_type size() const { return c.size; }
+	// ...
+}
+```
 
+### Delegation委托(Composition by Reference，用指针复合)
 
+1. **pImpl**(Pointer to Implementation)
 
+	* 通过**指针**来执行操作, **编译防火墙**
+	
+2. 可以看做 **"虚"一些的复合**
+
+3. **Handle**与**Body**寿命不同步
+
+4. 代码示例:
+```cpp
+class StringRep;
+class String
+{
+public:
+	String();
+	String(const char* s);
+	String(const String& str);
+	String& operator=(const String& str);
+	~String();
+// ...
+private:
+	StringRep* rep; // pimpl
+}	
+```
+
+### Inheritance 继承(**is-a**)
+
+* 语法(**class derivation list, 类派生列表**)
+```cpp
+class sub_A : public/private/protected A
+```
+1. 子类(Derived,派生类)的对象**包含**父类(Base,基类)的成分
+
+2. 构造与析构
+	
+	2.1 构造**由内而外**，首先调用Base的默认构造函数，才执行自己
+	```cpp
+	Derived::Derived(...): Base() {...};
+	```
+	2.2 析构**由外而内**，先执行自己，再调用Base的析构函数
+	```cpp	
+	Derived::~Derived(...): ~Base() {...};
+	```
+	2.3 父类的dtor**一定是virtual**，否则出现**undefined behavior**
+	
+3. 代码示例:
+```cpp
+struct _List_node_base
+{
+	_List_node_base* _M_next;
+	_List_node_base* _M_brev;
+};
+
+template<typename T>
+struct _List_node_
+	: public _List_node_base
+{
+	_Tp _M_data;
+}
+```
+
+## Virtual Function(虚函数)
+
+1. **non-virtual function:** 不希望被**override(复写)**
+
+2. **virtual function:** 希望被**override(复写)**, 且本身**有默认定义**
+
+3. **pure virtual function:** 必须被**override(复写)**, 且本身**没有默认定义**
+
+4. 代码示例:
+```cpp
+class Shape
+{
+public:
+	virtual void draw() const = 0;	// pure virtual
+	virtual void error(const std::string& msg);	// impure virtual
+	int objectID() const;	// non-virtual
+	// ...
+}
+
+class Rectangle
+	: public Shape 
+{
+public:
+	virtual void draw() const { ... }
+};
+
+int main()
+{
+	Rectangle r;
+	// ...
+	r.draw()
+}
+```
+5. Template Method (设计模式)
+
+	* Application framework + Application
+	
+### 种关系下(继承 + 复合)的构造顺序
+
+1. Derived -> Base -> Component
+
+	* 子类派生于父类, 父类又含有复合类;
+	
+	* 构造顺序: Component, Base, Derived
+	
+2. Base <- Derived -> Component
+
+	* 子类派生于父类, 且子类又含有复合类;
+	
+	* 构造顺序: 待验证
