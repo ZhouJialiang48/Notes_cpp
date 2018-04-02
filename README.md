@@ -373,15 +373,9 @@ return a;
 	
 ### 内存管理
 
-<div align=center>
-	<img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_1.jpg"/>
-</div>
-<div align=center>
-	<img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_2.jpg"/>
-</div>	
-<div align=center>
-	<img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_3.jpg"/>	
-</div>
+<div align=center><img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_1.jpg"/></div>
+<div align=center><img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_2.jpg"/></div>	
+<div align=center><img width="450" height="300" src="https://github.com/ZhouJialiang48/Notes_cpp/raw/master/mem_manage_3.jpg"/>	</div>
 
 	
 
